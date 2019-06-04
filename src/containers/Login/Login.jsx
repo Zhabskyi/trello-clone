@@ -55,6 +55,11 @@ class Login extends Component {
       return <Redirect to='/boards' />
     }
 	}
+
+	// signout = () => {
+  //   this.isAuthenticated = false;
+	// 	this.props.history.push("/");
+  // }
 	
 	render() {
 		return (
