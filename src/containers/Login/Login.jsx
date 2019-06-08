@@ -29,6 +29,7 @@ class Login extends Component {
 	onAuthorizeSuccessful = () => {
 		const token = window.Trello.token();
 		this.setState( {token: token} );
+		console.log(this.state.token);
 		this.setState ( {isAuthenticated: true} );
   	//window.location.replace("/boards");    another way to redirect without React Router
 	}
@@ -55,11 +56,6 @@ class Login extends Component {
       return <Redirect to='/boards' />
     }
 	}
-
-	// signout = () => {
-  //   this.isAuthenticated = false;
-	// 	this.props.history.push("/");
-  // }
 	
 	render() {
 		return (

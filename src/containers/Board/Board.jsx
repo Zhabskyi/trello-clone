@@ -11,14 +11,19 @@ import Button from 'react-bootstrap/Button';
 
 import NewBoard from '../../containers/NewBoard/NewBoard';
 
+const axios = require('axios');
+
+
 class Board extends Component {
 	state = {
 		showModal: false,
-		isAuthenticated: true
+		isAuthenticated: true,
+		boardName: ''
 	};
 
 	signOut = () => {
-    this.isAuthenticated = false;
+		this.isAuthenticated = false;
+		localStorage.clear();
 		this.props.history.push("/");
   }
 
@@ -31,14 +36,19 @@ class Board extends Component {
     this.setState({ showModal: true });
 	}
 
+	handleBoardName = (e) => {
+		this.setState( {boardName: e.target.value} );
+	}
+
 	createBoard = () => {
-		fetch(
-			'https://api.trello.com/1/boards/?name=Test&defaultLabels=true&defaultLists=true&keepFromSource=none&prefs_permissionLevel=private&prefs_voting=disabled&prefs_comments=members&prefs_invitations=members&prefs_selfJoin=true&prefs_cardCovers=true&prefs_background=blue&prefs_cardAging=regular&key=46903497116c00582d5c680bb91c6e93&token=056126ba0a014c744ccd429889e025702b5382adf71b186d18c655c57aed199a',
-			{
-				method: 'POST'
-			}
-		)
-			.then((res)=> res.json())
+		let name = this.state.boardName;
+		let token = localStorage.trello_token;
+		let key = '';
+		axios.post('https://api.trello.com/1/boards/', null, { params: {
+			name,
+			token,
+			key
+		}})
 			.then((res) => console.log(res));
 	}
 
@@ -67,7 +77,10 @@ class Board extends Component {
 					</Navbar.Collapse>
 				</Navbar>
 				<NewBoard  
-					show = {this.state.showModal}/>
+					show = {this.state.showModal}
+					handleModalClose = {this.handleModalClose}
+					createBoard = {this.createBoard}
+					handleBoardName = {this.handleBoardName}/>
 			</div>
 		);
 	}
