@@ -2,19 +2,28 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {BrowserRouter} from 'react-router-dom';
 
+import { Provider } from 'react-redux';
+import { createStore, compose } from 'redux';
+import appReducer from './store';
+
 import './index.css';
 import App from './App';
 
+const composeEnhancers = (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
+	// @ts-ignore
+	? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
+	: compose;
+
+
+const store = createStore(appReducer, undefined, composeEnhancers());
+
+
 const app = (
-	<BrowserRouter>
-			<link
-			rel="stylesheet"
-			href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-			integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
-			crossOrigin="anonymous"
-		/>
-		<App />
-	</BrowserRouter>
+	<Provider store={store}>
+		<BrowserRouter>
+			<App />
+		</BrowserRouter>
+	</Provider>
 )
 
 ReactDOM.render(app, document.getElementById('root'));

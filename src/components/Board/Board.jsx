@@ -8,33 +8,20 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
+import Counter from '../../containers/Counter';
 
-import NewBoard from '../../containers/NewBoard/NewBoard';
+import NewBoard from '../../containers/NewBoard';
 
 const axios = require('axios');
 
 
 class Board extends Component {
-	state = {
-		showModal: false,
-		isAuthenticated: true,
-		boardName: ''
-	};
 
 	signOut = () => {
-		this.isAuthenticated = false;
 		localStorage.clear();
 		this.props.history.push("/");
   }
 
-
-	handleModalClose = () => {
-    this.setState({ showModal: false });
-  }
-
-  handleModalShow = () => {
-    this.setState({ showModal: true });
-	}
 
 	handleBoardName = (e) => {
 		this.setState( {boardName: e.target.value} );
@@ -53,6 +40,10 @@ class Board extends Component {
 	}
 
 	render() {
+		const {onClick} = this.props;
+		const {onModal} = this.props;
+		const {onLogin} = this.props;
+
 		return (
 			<div>
 				<Navbar bg="light" expand="lg">
@@ -62,7 +53,7 @@ class Board extends Component {
 						<Nav className="mr-auto">
 							<Nav.Link href="#home">Home</Nav.Link>
 							<NavDropdown title="Boards" id="basic-nav-dropdown">
-								<NavDropdown.Item href="#action/3.1" onClick={this.handleModalShow}>Create new board</NavDropdown.Item>
+								<NavDropdown.Item href="#action/3.1" onClick = {() => onModal()}>Create new board</NavDropdown.Item>
 								<NavDropdown.Item href="#action/3.2">Another action</NavDropdown.Item>
 								<NavDropdown.Item href="#action/3.3">Something</NavDropdown.Item>
 								<NavDropdown.Divider />
@@ -72,15 +63,17 @@ class Board extends Component {
 						<Form inline>
 							<FormControl type="text" placeholder="Search" className="mr-sm-2" />
 							<Button variant="outline-success">Search</Button>
-							<Button variant="outline-secondary" className="btn_signOut" onClick={this.signOut}>Sign Out</Button>
+							<Button variant="outline-secondary" className="btn_signOut" onClick={() => {onLogin(); this.signOut()}}>Sign Out</Button>
 						</Form>
 					</Navbar.Collapse>
 				</Navbar>
 				<NewBoard  
 					show = {this.state.showModal}
-					handleModalClose = {this.handleModalClose}
+					handleModalClose = {() => onModal()}
 					createBoard = {this.createBoard}
 					handleBoardName = {this.handleBoardName}/>
+					<Button onClick = {() => onClick()}>COOL ACTION</Button>
+				<Counter />
 			</div>
 		);
 	}

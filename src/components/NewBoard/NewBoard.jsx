@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 const NewBoard = (props) => {
 			return ( 
 			<>
-			<Modal show={props.show} onHide={props.handleModalClose}>
+			<Modal show={props.isShowModal} >
 				<Modal.Header closeButton>
 					<Modal.Title>BOARD</Modal.Title>
 				</Modal.Header>
@@ -19,10 +19,10 @@ const NewBoard = (props) => {
 					</Form.Group>
 				</Form>
 				<Modal.Footer>
-					<Button variant="secondary" onClick={props.handleModalClose}>
+					<Button variant="secondary" onClick = {() => props.onModal()}>
 						Close
 					</Button>
-					<Button variant="primary" onClick={() => {props.handleModalClose(); props.createBoard()}}>
+					<Button variant="primary" onClick = {() => props.onModal()}>
 						Save Changes
 					</Button>
 				</Modal.Footer>
