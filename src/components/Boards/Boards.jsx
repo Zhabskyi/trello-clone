@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './Board.css';
+import './Boards.css';
 
 import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
@@ -9,23 +9,20 @@ import Form from 'react-bootstrap/Form';
 import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 import Counter from '../../containers/Counter';
+import BoardList from '../../containers/BoardList';
 
 import NewBoard from '../../containers/NewBoard';
 
 const axios = require('axios');
 
 
-class Board extends Component {
+class Boards extends Component {
 
 	signOut = () => {
 		localStorage.clear();
 		this.props.history.push("/");
   }
 
-
-	handleBoardName = (e) => {
-		this.setState( {boardName: e.target.value} );
-	}
 
 	createBoard = () => {
 		let name = this.state.boardName;
@@ -40,9 +37,7 @@ class Board extends Component {
 	}
 
 	render() {
-		const {onClick} = this.props;
-		const {onModal} = this.props;
-		const {onLogin} = this.props;
+		const {onClick, onModal, onLogin} = this.props;
 
 		return (
 			<div>
@@ -68,15 +63,14 @@ class Board extends Component {
 					</Navbar.Collapse>
 				</Navbar>
 				<NewBoard  
-					show = {this.state.showModal}
-					handleModalClose = {() => onModal()}
-					createBoard = {this.createBoard}
-					handleBoardName = {this.handleBoardName}/>
+					show = {onModal}
+					createBoard = {this.createBoard}/>
 					<Button onClick = {() => onClick()}>COOL ACTION</Button>
 				<Counter />
+				<BoardList />
 			</div>
 		);
 	}
 }
 
-export default Board;
+export default Boards;

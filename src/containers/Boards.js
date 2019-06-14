@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import {coolAction, showModal, login} from '../store/actions';
+import {coolAction, showModal, login } from '../store/actions';
 
-import Board from '../components/Board/Board';
+import Boards from '../components/Boards/Boards';
 
 const mapStateToProps = (state) => {
   console.log(state);
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
 	
 });
 
-const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
+const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Boards);
 
 export default BoardContainer;

@@ -3,13 +3,17 @@ import { SHOW_MODAL_ACTION_TYPE } from './actions';
 import { AUTHENTICATE_ACTION_TYPE } from './actions';
 import { SET_TOKEN_ACTION_TYPE } from './actions';
 import { SET_BOARD_NAME_ACTION_TYPE } from './actions';
+import { GET_BOARD_LIST_ACTION_TYPE } from './actions';
+import { LOADING_ACTION_TYPE } from './actions';
 
 const INITIAL_STATE = {
 	clickCounts: 0,
 	token: '',
 	isShowModal: false,
 	isAuthenticated: false,
-	boardName: ''
+	boardName: '',
+	boardList: [],
+	isLoading: true
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -24,7 +28,11 @@ export default (state = INITIAL_STATE, action) => {
 		case AUTHENTICATE_ACTION_TYPE:
 			return {...state, isAuthenticated: !state.isAuthenticated};
 		case SET_BOARD_NAME_ACTION_TYPE:
-      return {...state, boardName: action.payload};
+			return {...state, boardName: action.payload};
+		case GET_BOARD_LIST_ACTION_TYPE:
+			return {...state, boardList: action.payload};
+		case LOADING_ACTION_TYPE:
+      return {...state, isLoading: !state.isLoading};
     default:
       return {...state}
   }
