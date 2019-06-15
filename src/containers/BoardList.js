@@ -1,10 +1,10 @@
 import { connect } from 'react-redux';
-import { loadList, loading } from '../store/actions';
+import { loading, fetchBoards} from '../store/actions';
 
 import BoardList from '../components/Boards/BoardList/BoardList';
 
 const mapDispatchToProps = (dispatch) => ({
-	loadBoards: (boardList) => dispatch(loadList(boardList)),
+	loadBoards: () => dispatch(fetchBoards()),
 	setLoading: (isLoading) => dispatch(loading(isLoading))
 });
 

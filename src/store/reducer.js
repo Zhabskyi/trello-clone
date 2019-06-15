@@ -1,4 +1,4 @@
-import { COUNT_CHANGE_ACTION_TYPE } from './actions';
+import {COUNT_CHANGE_ACTION_TYPE, SET_BOARDS} from './actions';
 import { SHOW_MODAL_ACTION_TYPE } from './actions';
 import { AUTHENTICATE_ACTION_TYPE } from './actions';
 import { SET_TOKEN_ACTION_TYPE } from './actions';
@@ -33,6 +33,8 @@ export default (state = INITIAL_STATE, action) => {
 			return {...state, boardList: action.payload};
 		case LOADING_ACTION_TYPE:
       return {...state, isLoading: !state.isLoading};
+		case SET_BOARDS:
+			return {...state, boardList: action.payload, isLoading: false};
     default:
       return {...state}
   }
