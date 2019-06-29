@@ -1,14 +1,16 @@
 import axios from '../axios-instance';
+import {
+  AUTHENTICATE_ACTION_TYPE,
+  COUNT_CHANGE_ACTION_TYPE,
+  GET_BOARD_LIST_ACTION_TYPE,
+  GET_LISTS_ACTION_TYPE, LOADING_ACTION_TYPE,
+  SET_BOARD,
+  SET_BOARD_NAME_ACTION_TYPE,
+  SET_BOARDS,
+  SET_TOKEN_ACTION_TYPE,
+  SHOW_MODAL_ACTION_TYPE
+} from './actionTypes';
 
-export const SET_TOKEN_ACTION_TYPE = '@@AUTH/SET_TOKEN';
-export const COUNT_CHANGE_ACTION_TYPE = '@@TRASH/COUNT_CHANGED';
-export const SHOW_MODAL_ACTION_TYPE = '@@BOARD/SHOW_MODAL';
-export const SET_BOARDS = '@@BOARD/SET_BOARDS';
-export const AUTHENTICATE_ACTION_TYPE = '@@AUTH/AUTHENTICATE';
-export const SET_BOARD_NAME_ACTION_TYPE = '@@BOARD/SET_NAME';
-export const GET_BOARD_LIST_ACTION_TYPE = '@@BOARD/GET_BOARD_LIST';
-export const GET_LISTS_ACTION_TYPE = '@@LISTS/GET_LISTS';
-export const LOADING_ACTION_TYPE = '@@BOARD/LOADING';
 
 export const setToken = (token) => ({
   type: SET_TOKEN_ACTION_TYPE,
@@ -35,6 +37,22 @@ export const boardName = (name) => ({
   payload: name
 });
 
+export const fetchBoard = (id) => async (dispatch) => {
+  try {
+    try {
+      const response = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+      dispatch({
+        type: SET_BOARD,
+        payload:response.data
+      });
+    } catch (e) {
+      console.log(e);
+    }
+  } catch(e) {
+
+  }
+};
+
 export const loadList = (list) => ({
   type: GET_BOARD_LIST_ACTION_TYPE,
   payload: list
@@ -45,7 +63,7 @@ export const loading = (load) => ({
   payload: load
 });
 
-export const fetchBoards = () => async (dispatch, getState) => {
+export const fetchBoards = () => async (dispatch) => {
   try {
    // const state = getState();
     const response = await axios.get(`/1/members/me/boards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);

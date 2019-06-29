@@ -1,15 +1,15 @@
 import { connect } from 'react-redux';
-import { loading, fetchLists} from '../store/actions';
-
-import Board from '../components/Boards/Board';
+import {Board} from '../components/Board/Board';
+import {fetchBoard} from '../store/actions';
 
 const mapDispatchToProps = (dispatch) => ({
-	choosenList: (id) => dispatch(fetchLists(id)),
-	setLoading: (isLoading) => dispatch(loading(isLoading))
+  loadBoard: (id) => dispatch(fetchBoard(id))
 });
 
-const mapStateToProps = () => ({});
+const mapStateToProps = (state) => {
+  return {}
+};
 
-const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
+const BoardListContainer = connect(mapStateToProps, mapDispatchToProps)(Board);
 
-export default BoardContainer;
+export default BoardListContainer;

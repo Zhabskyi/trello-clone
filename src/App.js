@@ -1,25 +1,28 @@
-import React, { Component } from 'react';
-import { Route, Switch } from "react-router-dom";
+import React, {Component} from 'react';
+import {Route, Switch} from 'react-router-dom';
 import './App.css';
 
-import { Login } from './components/Login/Login';
-import Boards from './components/Boards/Boards';
-import Lists from './containers/Lists';
-import { SetToken } from './containers/SetToken';
-
+import {Login} from './components/Login/Login';
+import {SetToken} from './containers/SetToken';
+import Board from './containers/Board';
+import BoardList from './containers/BoardList';
+import Navigation from './components/Navbar/Navigation';
 
 class App extends Component {
-	
-	render() {
-		return (
-			<Switch>
-				<Route path="/boards" component={Boards}/>
-				<Route path="/list/:name" component={Lists}/>
-				<Route path="/" exact component={Login} />
-				<Route path="/gettoken" component={SetToken} />
-			</Switch>
-		)
-	}
+
+  render() {
+    return (
+      <>
+        <Navigation />
+        <Switch>
+          <Route exact={true} path="/boards" component={BoardList}/>
+          <Route path="/boards/:id" component={Board}/>
+          <Route path="/" exact component={Login}/>
+          <Route path="/gettoken" component={SetToken}/>
+        </Switch>
+      </>
+    );
+  }
 }
 
-export default App
+export default App;
