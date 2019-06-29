@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 import {coolAction, showModal, login } from '../store/actions';
 
-import Boards from '../components/Boards/Boards';
+import Navigation from '../components/Navbar/Navigation';
 
 const mapStateToProps = (state) => {
   console.log(state);
@@ -18,6 +18,6 @@ const mapDispatchToProps = (dispatch) => ({
 	
 });
 
-const BoardContainer = connect(mapStateToProps, mapDispatchToProps)(Boards);
+const NavigationContainer = connect(mapStateToProps, mapDispatchToProps)(Navigation);
 
-export default BoardContainer;
+export default NavigationContainer;

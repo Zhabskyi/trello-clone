@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import Board from '../../../containers/Board';
+import Spinner from '../../Spinner/Spinner';
 
 
 class BoardList extends Component {
@@ -9,24 +11,25 @@ class BoardList extends Component {
 
 
 	render() {
-		console.log(this.props.list);
 
-		let name = (this.props.list.map( ({ name }) => (
-			<li>
-				{name}
-			</li>
-		)));
+		const { isLoading, list } = this.props;
+		const board = 	list.map( ({ name, id, prefs }) => (
+			<Board 
+				key={id}
+				name={name}
+				backgroundImage={prefs.backgroundImage}
+				id={id} />
+		));
 
-		if (this.props.isLoading) {
-			name = 'Waiting on server......'
+		if ( isLoading ) {
+			return <Spinner/>
+		} else {
+			return (
+				<div className="board-list">
+					{ board }
+				</div>
+			)
 		}
-		return (
-			<div>
-				<ul>
-					{name}
-				</ul>
-			</div>
-		);
 	}
 }
 

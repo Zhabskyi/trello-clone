@@ -5,6 +5,7 @@ import { SET_TOKEN_ACTION_TYPE } from './actions';
 import { SET_BOARD_NAME_ACTION_TYPE } from './actions';
 import { GET_BOARD_LIST_ACTION_TYPE } from './actions';
 import { LOADING_ACTION_TYPE } from './actions';
+import { GET_LISTS_ACTION_TYPE } from './actions';
 
 const INITIAL_STATE = {
 	clickCounts: 0,
@@ -13,7 +14,8 @@ const INITIAL_STATE = {
 	isAuthenticated: false,
 	boardName: '',
 	boardList: [],
-	isLoading: true
+	isLoading: true,
+	lists: []
 };
 
 export default (state = INITIAL_STATE, action) => {
@@ -35,6 +37,8 @@ export default (state = INITIAL_STATE, action) => {
       return {...state, isLoading: !state.isLoading};
 		case SET_BOARDS:
 			return {...state, boardList: action.payload, isLoading: false};
+		case GET_LISTS_ACTION_TYPE:
+			return {...state, lists: action.payload, isLoading: false};
     default:
       return {...state}
   }
