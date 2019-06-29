@@ -48,7 +48,7 @@ export const loading = (load) => ({
 export const fetchBoards = () => async (dispatch, getState) => {
   try {
    // const state = getState();
-    const response = await axios.get(`/1/members/me/boards?key=34630d57dfd6a65943e65203196c0e97&token=${localStorage.token}`);
+    const response = await axios.get(`/1/members/me/boards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
     dispatch({
       type: SET_BOARDS,
       payload:response.data
@@ -60,7 +60,7 @@ export const fetchBoards = () => async (dispatch, getState) => {
 
 export const fetchLists = (id) => async (dispatch) => {
   try {
-    const response = await axios.get(`/1/boards/${id}/lists?key=34630d57dfd6a65943e65203196c0e97&token=${localStorage.token}`);
+    const response = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
     dispatch({
       type: GET_LISTS_ACTION_TYPE,
       payload:response.data

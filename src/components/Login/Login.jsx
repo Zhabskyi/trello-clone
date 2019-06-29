@@ -14,7 +14,7 @@ export const Login = () => {
 				</p>
 				<h4>
 					<a
-							href='https://trello.com/1/authorize?return_url=http://localhost:3000/gettoken&expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=34630d57dfd6a65943e65203196c0e97'
+							href={`https://trello.com/1/authorize?return_url=http://localhost:3000/gettoken&expiration=1day&name=MyPersonalToken&scope=read&response_type=token&key=${process.env.REACT_APP_TRELLO_KEY}`}
 						>
 								Login with Trello account
 					</a>
