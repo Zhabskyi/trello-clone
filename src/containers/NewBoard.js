@@ -8,7 +8,7 @@ const mapDispatchToProps = (dispatch) => ({
 });
 const mapStateToProps = (state) => {
   return {
-    isShowModal: state.isShowModal
+    isShowModal: state.app.isShowModal
   }
 };
 

@@ -10,8 +10,8 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-		cards: state.cards,
-		isDragging: state.isDragging,
+		cards: state.board.cards,
+		isDragging: state.app.isDragging,
   }
 };
 

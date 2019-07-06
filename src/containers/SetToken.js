@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { SetToken } from '../components/Login/SetToken';
-import {setToken, login} from '../store/actions';
+import {setToken, login} from '../store/auth';
 
 const mapDispatchToProps = (dispatch) => ({
 		onSetToken: (token) => dispatch(setToken(token)),

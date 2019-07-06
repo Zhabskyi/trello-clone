@@ -5,7 +5,7 @@ const mapDispatchToProps = () => ({});
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-    counts: state.clickCounts
+    counts: state.app.clickCounts
   }
 };
 

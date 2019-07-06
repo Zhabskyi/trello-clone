@@ -6,8 +6,8 @@ import Navigation from '../components/Navbar/Navigation';
 const mapStateToProps = (state) => {
   console.log(state);
   return {
-		isShowModal: state.isShowModal,
-		
+		isShowModal: state.app.isShowModal,
+
   }
 };
 
@@ -15,7 +15,7 @@ const mapDispatchToProps = (dispatch) => ({
 	onClick: (clickcounts) => dispatch(coolAction(clickcounts)),
 	onModal: (isShowModal) => dispatch(showModal(isShowModal)),
 	onLogin: (isAuthenticated) => dispatch(login(isAuthenticated))
-	
+
 });
 
 const NavigationContainer = connect(mapStateToProps, mapDispatchToProps)(Navigation);

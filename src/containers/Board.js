@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {Board} from '../components/Board/Board';
-import {fetchBoard} from '../store/actions';
+import {fetchBoard, getCards, getDetails, getLists} from '../store/board';
 
 const mapDispatchToProps = (dispatch) => ({
   loadBoard: (id) => dispatch(fetchBoard(id))
@@ -8,11 +8,9 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-		board: state.board,
-		lists: state.lists,
-		cards: state.cards,
-		isLoadingBoard: state.isLoadingBoard,
-		isLoadingCards: state.isLoadingCards
+		board: getDetails(state),
+		lists: getLists(state),
+		cards: getCards(state),
   }
 };
 

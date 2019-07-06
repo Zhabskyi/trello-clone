@@ -1,0 +1,3 @@
+export const SET_BOARD_LIST = '@@BOARD/SET_BOARD_LIST';
+export const SET_BOARD_CARDS = '@@BOARD/SET_BOARD_CARDS';
+export const SET_BOARD = '@@BOARD/SET_BOARD';
