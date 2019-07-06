@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import Board from './BoardCard';
+import BoardCard from './BoardCard';
 import Spinner from '../Spinner/Spinner';
 
 
@@ -16,10 +16,10 @@ class BoardList extends Component {
 			return <Spinner/>
 		} else {
 			return (
-				<div className="board-list">
+				<div className="boards-list">
 					{
 						boards.map( ({ name, id, prefs }) => (
-							<Board
+							<BoardCard
 								key={id}
 								name={name}
 								boardId={id}

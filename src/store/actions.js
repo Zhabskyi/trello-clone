@@ -3,12 +3,17 @@ import {
   AUTHENTICATE_ACTION_TYPE,
   COUNT_CHANGE_ACTION_TYPE,
   GET_BOARD_LIST_ACTION_TYPE,
-  GET_LISTS_ACTION_TYPE, LOADING_ACTION_TYPE,
-  SET_BOARD,
+ 	LOADING_ACTION_TYPE,
+	SET_BOARD_LIST,
+	SET_BOARD_CARDS,
+	SET_BOARD,
   SET_BOARD_NAME_ACTION_TYPE,
   SET_BOARDS,
   SET_TOKEN_ACTION_TYPE,
-  SHOW_MODAL_ACTION_TYPE
+	SHOW_MODAL_ACTION_TYPE,
+	DRAG_CARD_ACTION_TYPE,
+	DROP_CARD_ACTION_TYPE,
+	GET_LIST_ID_ACTION_TYPE,
 } from './actionTypes';
 
 
@@ -40,10 +45,20 @@ export const boardName = (name) => ({
 export const fetchBoard = (id) => async (dispatch) => {
   try {
     try {
-      const response = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+      const lists = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+      const cards = await axios.get(`/1/boards/${id}/cards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+			const board = await axios.get(`/1/boards/${id}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+			dispatch({
+        type: SET_BOARD_CARDS,
+        payload:cards.data
+			});
       dispatch({
+        type: SET_BOARD_LIST,
+        payload:lists.data
+			});
+			dispatch({
         type: SET_BOARD,
-        payload:response.data
+        payload:board.data
       });
     } catch (e) {
       console.log(e);
@@ -52,6 +67,7 @@ export const fetchBoard = (id) => async (dispatch) => {
 
   }
 };
+
 
 export const loadList = (list) => ({
   type: GET_BOARD_LIST_ACTION_TYPE,
@@ -76,16 +92,44 @@ export const fetchBoards = () => async (dispatch) => {
   }
 };
 
-export const fetchLists = (id) => async (dispatch) => {
-  try {
-    const response = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+export const dragCard = (e, id ) => (dispatch) => {
+	e.dataTransfer.setData('id', id);
+	dispatch({
+		type: DRAG_CARD_ACTION_TYPE,
+		payload: id
+	})
+}
+
+export const dropCard = (e) => async (dispatch, getState) => {
+	e.preventDefault();
+	try {
+		const data = e.dataTransfer.getData('id');
+		const state = getState();
+		let Cards = state.cards;
+		for (let i = 0; i < Cards.length.length; i++) {
+			if (Cards[i].id === data) {
+				Cards[i].idList = state.onDragListId
+			}
+		}
+//		const response = await axios.put(`/1/cards/${data}?idList=${state.onDragListId}&key=${process.env.REACT_APP_TRELLO_KEY}&token=${process.env.REACT_APP_TRELLO_TOKEN}`);
+	// 	for (let i = 0; i < Cards.length; i++) {
+	// 		if ( Cards[i].id ===  response.data.id) {
+	// 			Cards.splice( i, 1 , response.data);
+	// 	}
+	// }
     dispatch({
-      type: GET_LISTS_ACTION_TYPE,
-      payload:response.data
+      type: DROP_CARD_ACTION_TYPE,
+			payload:Cards
     });
   } catch (e) {
     console.log(e);
-  }
-};
+	}
+}
 
-
+export const getListId = (e) => (dispatch) => {
+	e.preventDefault();
+	dispatch({
+  type: GET_LIST_ID_ACTION_TYPE,
+  payload: e.currentTarget.firstChild.id
+	});
+} 

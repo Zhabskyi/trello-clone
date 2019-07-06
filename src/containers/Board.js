@@ -7,7 +7,13 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 const mapStateToProps = (state) => {
-  return {}
+  return {
+		board: state.board,
+		lists: state.lists,
+		cards: state.cards,
+		isLoadingBoard: state.isLoadingBoard,
+		isLoadingCards: state.isLoadingCards
+  }
 };
 
 const BoardListContainer = connect(mapStateToProps, mapDispatchToProps)(Board);

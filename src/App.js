@@ -12,7 +12,7 @@ class App extends Component {
 
   render() {
     return (
-      <>
+      <div className='page-wrapper'>
         <Navigation />
         <Switch>
           <Route exact={true} path="/boards" component={BoardList}/>
@@ -20,7 +20,7 @@ class App extends Component {
           <Route path="/" exact component={Login}/>
           <Route path="/gettoken" component={SetToken}/>
         </Switch>
-      </>
+      </div>
     );
   }
 }

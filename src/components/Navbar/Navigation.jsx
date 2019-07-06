@@ -36,10 +36,10 @@ class Navigation extends Component {
 	}
 
 	render() {
-		const { onModal, onLogin } = this.props;
+		const { onModal } = this.props;
 
 		return (
-			<div>
+			<div className='navigation'>
 				<Navbar bg="light" expand="lg">
 					<Navbar.Brand href="#home">Let's be motivated!</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
@@ -53,7 +53,7 @@ class Navigation extends Component {
 						<Form inline>
 							<FormControl type="text" placeholder="Search" className="mr-sm-2" />
 							<Button variant="outline-success">Search</Button>
-							<Button variant="outline-secondary" className="btn_signOut" onClick={() => {onLogin(); this.signOut()}}>Sign Out</Button>
+							<Button variant="outline-secondary" className="btn_signOut" onClick={() => {this.signOut()}}>Sign Out</Button>
 						</Form>
 					</Navbar.Collapse>
 				</Navbar>

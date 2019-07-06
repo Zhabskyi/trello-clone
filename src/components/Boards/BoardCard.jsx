@@ -4,13 +4,12 @@ import { Link } from 'react-router-dom';
 const BoardCard = ({ boardId, name,  backgroundImage }) => {
 	return (
 		<Link to={`/boards/${boardId}`}>
-			<div className='board'
+			<div className='board__card'
 					style={{
-						background: `url('${backgroundImage}') no-repeat`,
-						backgroundSize: 'cover'
+						background: `url('${backgroundImage}') no-repeat`
 					}}>
-				<span className="board-fade"></span>
-				<h3 className='board-name'>{name}</h3>
+				<span className="board__card-fade"></span>
+				<h3 className='board__card-name'>{name}</h3>
 			</div>
 		</Link>
 	)
