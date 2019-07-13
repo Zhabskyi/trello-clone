@@ -1,3 +1,4 @@
 export const SET_BOARD_LIST = '@@BOARD/SET_BOARD_LIST';
 export const SET_BOARD_CARDS = '@@BOARD/SET_BOARD_CARDS';
 export const SET_BOARD = '@@BOARD/SET_BOARD';
+export const DROP_CARD_ACTION_TYPE = '@@CARD/DROP_CARD';

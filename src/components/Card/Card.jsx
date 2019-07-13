@@ -1,21 +1,36 @@
 import React, { Component } from 'react';
+import { Draggable } from 'react-beautiful-dnd';
+
+const getItemStyle = (isdragging, draggableStyle) => ({
+  userSelect: "none",
+  background: isdragging ? "#ededed" : "white",
+  ...draggableStyle
+});
 
 
 export default class Card extends Component {
 	render() {
-		const { name, idCard, drag, noAllowDrop } = this.props;
+		const { card, index } = this.props;
 
 		return (
-			<div
-				id={idCard}
-				draggable='true'
-				onDragStart={(e) => drag(e, idCard )}
-				onDragOver={(e) => noAllowDrop(e)}
-				className='card-wrapper'>
-				 <div className="card" >
-						<span className="card-name">{name}</span>
+			<Draggable draggableId={card.id} index={index}>
+				{(provided, snapshot) => (
+					<div
+						provided={provided}
+						ref={provided.innerRef}
+						{...provided.draggableProps}
+						{...provided.dragHandleProps}
+						isdragging={snapshot.isDragging}
+						id={card.id}
+						style={getItemStyle(
+							snapshot.isDragging,
+							provided.draggableProps.style
+						)} 
+						className='card-wrapper'>
+								<span className="card-name">{card.name}</span>
 					</div>
-			</div>
+				)}
+			</Draggable>
 		)
 	}
 }

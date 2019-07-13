@@ -1,57 +1,47 @@
 import * as React from 'react';
+import { Droppable } from 'react-beautiful-dnd';
 
-import Spinner from '../Spinner/Spinner';
 import Card from '../Card/Card';
+
+const getListStyle = (isDraggingOver, draggableStyle) => ({
+	background: isDraggingOver ? "#b4cfe0" : "inherit",
+	transition: 'background-color 0.2s ease',
+	...draggableStyle
+});
 
 
 export class List extends React.PureComponent {
 
-	allowDrop = (e) => {
-		e.preventDefault();
-	}
-
-	noAllowDrop = (e) => {
-		e.stopPropagation();
-	}
-
-
 
   render() {
 
-		const { listId, name, cards, isLoadingCards, dragCard, dropCard, getListId } = this.props;
-		let cardList =[];
-		for (let i = 0; i < cards.length; i++) {
-			const idList = cards[i].idList;
-			if (listId === idList) {
-				cardList.push(cards[i]);
-			}
-		}
-
+		const { listId, name, cards } = this.props;
 		
-			if ( isLoadingCards ) {
-				return <Spinner/>
-			} else {
+    if(!cards) {
+      return null;
+    }
 				return	( 
-				<div className='list-wrapper'
-					onDrop={(e) => dropCard(e, this.props.listId)}
-					onDragOver={(e) => this.allowDrop(e)}
-					onDragEnter={(e) => getListId(e)}>
-						<div className="list" id ={listId}>
+				<div className='list-wrapper'	>
+						<div className="list">
 							<div className='list-name'>
 								{name}
-								<div className='list-card' id='drop'>	
-									{cardList.map(( {id, name } ) => (
-											<Card
-													key={id}
-													name={name}
-													idCard={id}
-													drag={(e, id ) => {dragCard(e, id)}}
-													noAllowDrop={this.noAllowDrop}/>
-									))}
-								</div>
+								<Droppable droppableId={listId}>
+									{(provided, snapshot) => (
+										<div className='list-card' 
+											provided={provided}
+											ref={provided.innerRef}
+											style={getListStyle(snapshot.isDraggingOver)}
+											{...provided.droppableProps}
+										>	
+											{cards.map((card, index) => (
+											<Card key={card.id} card={card} index={index} />
+											))}
+											{provided.placeholder}
+										</div>
+									)}
+								</Droppable>
 							</div>
 						</div>
 				</div>	
 			)}
 	}
-}

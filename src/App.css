@@ -4,8 +4,9 @@
 
 .board__card {
 	min-width: 400px;
-	min-height: 300px;
+	min-height: 200px;
 	position: relative;
+	margin: 15px;
 	color: white;
 	padding: 1rem;
   border: #ccc 1px solid;
@@ -25,6 +26,7 @@
 	justify-content: space-around;
 	flex-wrap: wrap;
 }
+
 
 .board__card-fade {
 	background-color: rgba(0,0,0,.2);
@@ -67,6 +69,8 @@
 }
 
 .list {
+	padding: 10px 8px;
+	min-height: 25px;
 	background-color: #dfe1e6;
 	border-radius: 3px;
 	box-sizing: border-box;
@@ -75,15 +79,18 @@
 	max-height: 100%;
 	position: relative;
 	white-space: normal;
+	text-align: center;
 }
 
 .list-name {
-	padding: 10px 8px;
-	min-height: 25px;
 	font-weight: bold;
+	font-family: Arial, Helvetica, sans-serif;
 }
 
+
+
 .list-card {
+	text-align: left;
 	flex: 1 1 auto;
 	margin-bottom: 0;
 	overflow-y: auto;
@@ -91,11 +98,21 @@
 	margin: 0 4px;
 	padding: 0 4px;
 	z-index: 1;
-	min-height: 0;
+	min-height: 60px;
 }
 
 .card-wrapper {
-	margin: 5px 0;
+	font-size: 16px;
+	font-weight: 500;
+	border-radius: 4px;
+	box-shadow: 8px 10px 4px -5px rgba(168,168,168,0.6);
+	padding: 12px;
+	margin: 8px 0;
+}
+
+
+.card-wrapper:focus {
+	outline:none;
 }
 
 .blank {
