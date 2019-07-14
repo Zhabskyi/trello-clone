@@ -1,5 +1,6 @@
 import axios from '../../axios-instance';
 import {SET_BOARDS} from './actionTypes';
+import {authError} from '../auth';
 
 export const fetchBoards = () => async (dispatch) => {
   try {
@@ -10,6 +11,11 @@ export const fetchBoards = () => async (dispatch) => {
       payload:response.data
     });
   } catch (e) {
-    console.log(e);
+    debugger;
+    if (e.response && e.response.status === 401) {
+      dispatch(authError())
+    } else {
+      alert(e.response.message)
+    }
   }
 };

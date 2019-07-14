@@ -7,8 +7,12 @@ import {SetToken} from './containers/SetToken';
 import Board from './containers/Board';
 import BoardList from './containers/BoardList';
 import Navigation from './components/Navbar/Navigation';
+import NotificationsBarContainer from './containers/Notifications';
 
 class App extends Component {
+  componentDidMount() {
+    this.props.validateToken()
+  }
 
   render() {
     return (
@@ -20,6 +24,7 @@ class App extends Component {
           <Route path="/" exact component={Login}/>
           <Route path="/gettoken" component={SetToken}/>
         </Switch>
+        <NotificationsBarContainer />
       </div>
     );
   }
