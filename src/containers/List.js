@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import {List} from '../components/List/List';
-import { getLists } from '../store/board';
+import { getLists, getIsLoadingBoard } from '../store/data';
 
 
 const mapDispatchToProps = () => ({
@@ -10,6 +10,7 @@ const mapDispatchToProps = () => ({
 const mapStateToProps = (state) => {
   return {
 		lists: getLists(state),
+		isLoadingBoard: getIsLoadingBoard(state),
 		isDragging: state.app.isDragging,
   }
 };

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {BrowserRouter} from 'react-router-dom';
 import {ConnectedRouter, connectRouter} from 'connected-react-router';
 import {Provider} from 'react-redux';
 import {createBrowserHistory} from 'history';
@@ -12,8 +11,7 @@ import App from './containers/App';
 
 import './index.css';
 import {auth} from './store/auth';
-import {boards} from './store/boards';
-import {board} from './store/board';
+import {data} from './store/data';
 import {notifications} from './store/notifications';
 
 
@@ -33,8 +31,7 @@ const rootReducer = combineReducers({
   router: connectRouter(history),
   app: appReducer,
   auth,
-  boards,
-  board,
+  data,
   notifications
 });
 

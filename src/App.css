@@ -110,17 +110,21 @@
 	margin: 8px 0;
 }
 
-
 .card-wrapper:focus {
 	outline:none;
 }
 
 .blank {
-
 	background-color: #575656;
 	border-radius: 3px;
 	box-sizing: border-box;
 	min-height: 40px;
 	min-width: 100px;
 	margin: 4px;
+}
+
+.notification-bar {
+	max-width: 60%;
+	margin: 20px auto;
+	text-align: center;
 }

@@ -2,43 +2,47 @@ import * as React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import List from '../../containers/List';
+import Spinner from '../Spinner/Spinner';
 
 export class Board extends React.PureComponent {
-  componentDidMount() {
-    this.props.loadBoard(this.props.match.params.id);
+  componentWillMount() {
+	 this.props.loadBoard(this.props.match.params.id);
+	 //debugger;
 	}
 	
 
   render() {
-    console.log(this.props.match.params.id);
+    console.log(this.props);
 		const {board, lists, cards } = this.props;
-    if(!board) {
-      return null;
-    }
-    return (
-			<div className="board-wrapper">
-				<DragDropContext onDragEnd={result => this.props.onDragEnd(result)}>
-					<div className="board"
-							style={{
-								background: `url('${board.prefs.backgroundImage}') no-repeat `,
-								backgroundSize: 'cover'
-							}}>
+		if ( this.props.isLoadingBoard ) {
+			return <Spinner/>
+		} else {
+			return (
+				<div className="board-wrapper">
+					<DragDropContext onDragEnd={result => this.props.onDragEnd(result)}>
+						<div className="board"
+								style={{
+									background: `url('${board.prefs.backgroundImage}') no-repeat `,
+									backgroundSize: 'cover'
+								}}>
 
-							{lists.listsOder.map(listId => {
-								const list = lists[listId];
-								const Cards = list.cardIds.map(
-									cardId => cards[cardId]
-								)
-						
-			
-								return (
-									<List key={list.id} name={list.name} cards={Cards} listId={list.id}/>
-								);
-							})}
+								{lists.listsOder.map(listId => {
+									const list = lists[listId];
+									let Cards = list.cardIds.map(
+										cardId => cards[cardId]
+									)
+									//debugger;
+							
+				
+									return (
+										<List key={list.id} name={list.name} cards={Cards} listId={list.id}/>
+									);
+								})}
 
-					</div>
-				</DragDropContext>
-			</div>
-    );
-  }
+						</div>
+					</DragDropContext>
+				</div>
+			);
+ 		}
+	}
 }

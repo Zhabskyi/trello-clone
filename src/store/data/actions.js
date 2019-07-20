@@ -1,11 +1,32 @@
 import axios from '../../axios-instance';
 import {
+	SET_BOARDS,
   SET_BOARD,
   SET_BOARD_CARDS,
   SET_BOARD_LIST,
   DROP_CARD_ACTION_TYPE
 } from './actionTypes';
+import {authError} from '../auth';
 import {getToken} from '../auth';
+
+export const fetchBoards = () => async (dispatch) => {
+  try {
+    // const state = getState();
+    const response = await axios.get(`/1/members/me/boards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+    dispatch({
+      type: SET_BOARDS,
+      payload:response.data
+    });
+  } catch (e) {
+    debugger;
+    if (e.response && e.response.status === 401) {
+      dispatch(authError())
+    } else {
+      alert(e.response.message)
+    }
+  }
+};
+
 
 export const fetchBoard = (id) => async (dispatch, getState) => {
   try {
@@ -74,7 +95,7 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
 export const onDragEnd = (result) => async (dispatch, getState) => {
   try {
     const state = getState();
-    sessionStorage.setItem('oldList', JSON.stringify(state.board.lists));
+    sessionStorage.setItem('oldList', JSON.stringify(state.data.lists));
     const {destination, source, draggableId} = result;
 
     if (!destination) {
@@ -88,8 +109,8 @@ export const onDragEnd = (result) => async (dispatch, getState) => {
       return;
     }
 
-    const start = state.board.lists[source.droppableId];
-    const finish = state.board.lists[destination.droppableId];
+    const start = state.data.lists[source.droppableId];
+    const finish = state.data.lists[destination.droppableId];
 
     let newState = {};
     let finishIdList;
@@ -103,10 +124,11 @@ export const onDragEnd = (result) => async (dispatch, getState) => {
       const newList = {
         ...start,
         cardIds: newCardsId
-      };
+			};
+			finishIdList = newList.id;
 
       newState = {
-        ...state.board.lists,
+        ...state.data.lists,
         [newList.id]: newList
       };
     } else {
@@ -128,7 +150,7 @@ export const onDragEnd = (result) => async (dispatch, getState) => {
       finishIdList = newFinish.id;
 
       newState = {
-        ...state.board.lists,
+        ...state.data.lists,
         [newStart.id]: newStart,
         [newFinish.id]: newFinish
       };
@@ -147,8 +169,8 @@ export const onDragEnd = (result) => async (dispatch, getState) => {
     dispatch({
       type: SET_BOARD_LIST,
       payload: JSON.parse(oldListData)
-    });
-    console.log(e);
+		});
+		console.log(e);
   }
 
 };

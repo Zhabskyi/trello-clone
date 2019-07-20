@@ -1,17 +1,18 @@
 import { connect } from 'react-redux';
 import {Board} from '../components/Board/Board';
-import {fetchBoard, getCards, getDetails, getLists, onDragEnd} from '../store/board';
+import {fetchBoard, getCards, getDetails, getLists, getIsLoadingBoard, onDragEnd} from '../store/data';
 
 const mapDispatchToProps = (dispatch) => ({
-	loadBoard: (id) => dispatch(fetchBoard(id)),
-	onDragEnd: (result) => dispatch(onDragEnd(result))
+	onDragEnd: (result) => dispatch(onDragEnd(result)),
+	loadBoard: (id) => dispatch(fetchBoard(id))
 });
 
 const mapStateToProps = (state) => {
   return {
 		board: getDetails(state),
 		lists: getLists(state),
-		cards: getCards(state)
+		cards: getCards(state),
+		isLoadingBoard: getIsLoadingBoard(state)
   }
 };
 
