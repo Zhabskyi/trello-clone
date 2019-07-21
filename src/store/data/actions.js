@@ -1,15 +1,18 @@
 import axios from '../../axios-instance';
 import {
-	SET_BOARDS,
+  SET_BOARDS,
   SET_BOARD,
   SET_BOARD_CARDS,
   SET_BOARD_LIST,
-	DROP_CARD_ACTION_TYPE
+  DROP_CARD_ACTION_TYPE, FETCH_BOARD_REQUEST, FETCH_BOARD_SUCCEED, FETCH_BOARDS_REQUEST
 } from './actionTypes';
 import {authError} from '../auth';
 import {getToken} from '../auth';
 
 export const fetchBoards = () => async (dispatch) => {
+  dispatch({
+    type: FETCH_BOARDS_REQUEST,
+  });
   try {
     // const state = getState();
     const response = await axios.get(`/1/members/me/boards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
@@ -18,7 +21,6 @@ export const fetchBoards = () => async (dispatch) => {
       payload:response.data
     });
   } catch (e) {
-    debugger;
     if (e.response && e.response.status === 401) {
       dispatch(authError())
     } else {
@@ -29,24 +31,28 @@ export const fetchBoards = () => async (dispatch) => {
 
 
 export const fetchBoard = (id) => async (dispatch, getState) => {
+  dispatch({
+    type: FETCH_BOARD_REQUEST
+  });
   try {
-    let lists = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
-    const cards = await axios.get(`/1/boards/${id}/cards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
-    const board = await axios.get(`/1/boards/${id}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+    const state = getState();
+    const token = getToken(state);
+    let lists = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${token}`);
+    const cards = await axios.get(`/1/boards/${id}/cards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${token}`);
+    const board = await axios.get(`/1/boards/${id}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${token}`);
 
-    let TrelloList = lists.data;
+    let trelloList = lists.data;
 
-    TrelloList.forEach(el => {
+    trelloList.forEach(el => {
       Object.assign(el, {cardIds: []});
     });
-
 
     const cardsData = cards.data;
 
     const arrayOfListsId = [];
     const arrayOfCardsId = [];
 
-    TrelloList.forEach(el => {
+    trelloList.forEach(el => {
       arrayOfListsId.push(el.id);
     });
 
@@ -62,7 +68,7 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
 
     const ObjCards = arrayToObject(cardsData);
 
-    TrelloList.forEach(el => {
+    trelloList.forEach(el => {
       for (let i = 0; i < cardsData.length; i++) {
         if (cardsData[i].idList === el.id) {
           el.cardIds.push(cardsData[i].id);
@@ -70,8 +76,8 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
       }
     });
 
-    let ObjLists = arrayToObject(TrelloList);
-    Object.assign(ObjLists, {listsOder: arrayOfListsId});
+    let objLists = arrayToObject(trelloList);
+    Object.assign(objLists, {listsOder: arrayOfListsId});
 
 
     dispatch({
@@ -80,14 +86,17 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
     });
     dispatch({
       type: SET_BOARD_LIST,
-      payload: ObjLists
+      payload: objLists
     });
     dispatch({
       type: SET_BOARD,
       payload: board.data
     });
+    dispatch({
+      type: FETCH_BOARD_SUCCEED
+    });
   } catch (e) {
-
+    throw e;
   }
 };
 
@@ -185,14 +194,14 @@ export const addNewList = (e, value) => async (dispatch, getState) => {
 		let updatedList = Object.assign(Lists, {temp: name});
 		ListOder.push('temp');
 		let finalList = Object.assign(updatedList, {listsOder: ListOder})
-	
+
 		dispatch({
 			type: SET_BOARD_LIST,
 			payload: finalList
 		});
 
 		let idBoard = state.data.details.id;
-		
+
 
 	//await axios.post(`/1/lists?name=${value}&idBoard=${idBoard}&pos=bottom&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
 

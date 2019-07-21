@@ -13,6 +13,7 @@ import './index.css';
 import {auth} from './store/auth';
 import {data} from './store/data';
 import {notifications} from './store/notifications';
+import apiRequests from './store/apiRequests'
 
 
 const composeEnhancers = (process.env.NODE_ENV !== 'production' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__)
@@ -32,7 +33,8 @@ const rootReducer = combineReducers({
   app: appReducer,
   auth,
   data,
-  notifications
+  notifications,
+  apiRequests
 });
 
 const store = createStore(rootReducer, undefined, composeEnhancers(

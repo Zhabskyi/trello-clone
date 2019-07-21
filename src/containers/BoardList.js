@@ -2,6 +2,7 @@ import {connect} from 'react-redux';
 
 import BoardList from '../components/Boards/BoardList';
 import {fetchBoards, getBoards} from '../store/data';
+import {getToken} from '../store/auth';
 
 const mapDispatchToProps = (dispatch) => ({
   loadBoards: () => dispatch(fetchBoards()),
@@ -9,7 +10,7 @@ const mapDispatchToProps = (dispatch) => ({
 
 const mapStateToProps = (state) => {
   return {
-    token: state.app.token,
+    token: getToken(state),
     boards: getBoards(state)
   };
 };

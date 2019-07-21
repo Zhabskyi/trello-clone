@@ -31,7 +31,6 @@ export const setToken = (token) => async () => {
 
 export const validateToken = () => (dispatch) => {
   const token = localStorage.getItem(TOKEN_KEY);
-  console.log(token);
   if (token) {
     dispatch({
       type: SET_TOKEN_ACTION_TYPE,
