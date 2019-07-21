@@ -4,7 +4,7 @@ import {
   SET_BOARD,
   SET_BOARD_CARDS,
   SET_BOARD_LIST,
-  DROP_CARD_ACTION_TYPE
+	DROP_CARD_ACTION_TYPE
 } from './actionTypes';
 import {authError} from '../auth';
 import {getToken} from '../auth';
@@ -30,10 +30,9 @@ export const fetchBoards = () => async (dispatch) => {
 
 export const fetchBoard = (id) => async (dispatch, getState) => {
   try {
-    const state = getState();
-    let lists = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${getToken(state)}`);
-    const cards = await axios.get(`/1/boards/${id}/cards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${getToken(state)}`);
-    const board = await axios.get(`/1/boards/${id}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${getToken(state)}`);
+    let lists = await axios.get(`/1/boards/${id}/lists?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+    const cards = await axios.get(`/1/boards/${id}/cards?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+    const board = await axios.get(`/1/boards/${id}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
 
     let TrelloList = lists.data;
 
@@ -174,3 +173,35 @@ export const onDragEnd = (result) => async (dispatch, getState) => {
   }
 
 };
+
+export const addNewList = (e, value) => async (dispatch, getState) => {
+	e.preventDefault();
+	const state = getState();
+	localStorage.setItem('oldList', JSON.stringify(state.data.lists));
+	let Lists = state.data.lists;
+	let ListOder = state.data.lists.listsOder;
+	let name = {name: value, id: 'temp'}
+	try {
+		let updatedList = Object.assign(Lists, {temp: name});
+		ListOder.push('temp');
+		let finalList = Object.assign(updatedList, {listsOder: ListOder})
+	
+		dispatch({
+			type: SET_BOARD_LIST,
+			payload: finalList
+		});
+
+		let idBoard = state.data.details.id;
+		
+
+	//await axios.post(`/1/lists?name=${value}&idBoard=${idBoard}&pos=bottom&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+
+  } catch (e) {
+		// const oldCardsData = localStorage.getItem('oldList');
+		// dispatch({
+		// 	type: SET_BOARD_CARDS,
+		// 	payload: JSON.parse(oldCardsData)
+		// });
+		console.log(e);
+	}
+}

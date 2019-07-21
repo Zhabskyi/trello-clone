@@ -2,6 +2,7 @@ import * as React from 'react';
 import { DragDropContext } from 'react-beautiful-dnd';
 
 import List from '../../containers/List';
+import AddNewList from '../../containers/AddNewList';
 import Spinner from '../Spinner/Spinner';
 
 export class Board extends React.PureComponent {
@@ -38,7 +39,7 @@ export class Board extends React.PureComponent {
 										<List key={list.id} name={list.name} cards={Cards} listId={list.id}/>
 									);
 								})}
-
+							<AddNewList />
 						</div>
 					</DragDropContext>
 				</div>

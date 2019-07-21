@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 export const NotificationsBar = ({notifications}) => {
-  debugger;
+  //debugger;
   return notifications && Object.keys(notifications).length > 0
     ? 
 		<div className='notification-bar'>

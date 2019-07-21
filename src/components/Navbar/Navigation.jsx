@@ -7,7 +7,6 @@ import Navbar from 'react-bootstrap/Navbar';
 import Nav from 'react-bootstrap/Nav';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Form from 'react-bootstrap/Form';
-import FormControl from 'react-bootstrap/FormControl';
 import Button from 'react-bootstrap/Button';
 
 import NewBoard from '../../containers/NewBoard';
@@ -41,7 +40,7 @@ class Navigation extends Component {
 		return (
 			<div className='navigation'>
 				<Navbar bg="light" expand="lg">
-					<Navbar.Brand href="#home">Let's be motivated!</Navbar.Brand>
+					<Navbar.Brand >Let's be motivated!</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
 						<Nav className="mr-auto">
@@ -51,8 +50,6 @@ class Navigation extends Component {
 							</NavDropdown>
 						</Nav>
 						<Form inline>
-							<FormControl type="text" placeholder="Search" className="mr-sm-2" />
-							<Button variant="outline-success">Search</Button>
 							<Button variant="outline-secondary" className="btn_signOut" onClick={() => {this.signOut()}}>Sign Out</Button>
 						</Form>
 					</Navbar.Collapse>
