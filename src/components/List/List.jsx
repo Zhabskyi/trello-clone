@@ -3,6 +3,7 @@ import { Droppable } from 'react-beautiful-dnd';
 
 import Card from '../Card/Card';
 import Spinner from '../Spinner/Spinner';
+import AddNewCard from '../../containers/AddNewCard';
 
 const getListStyle = (isDraggingOver, draggableStyle) => ({
 	background: isDraggingOver ? "#b4cfe0" : "inherit",
@@ -43,6 +44,7 @@ export class List extends React.PureComponent {
 									)}
 								</Droppable>
 							</div>
+							<AddNewCard />
 						</div>
 				</div>	
 			)}

@@ -187,13 +187,13 @@ export const addNewList = (e, value) => async (dispatch, getState) => {
 	e.preventDefault();
 	const state = getState();
 	localStorage.setItem('oldList', JSON.stringify(state.data.lists));
-	let Lists = state.data.lists;
-	let ListOder = state.data.lists.listsOder;
+	let lists = state.data.lists;
+	let listOder = state.data.lists.listsOder;
 	let name = {name: value, id: 'temp'}
 	try {
-		let updatedList = Object.assign(Lists, {temp: name});
-		ListOder.push('temp');
-		let finalList = Object.assign(updatedList, {listsOder: ListOder})
+		let updatedList = Object.assign(lists, {temp: name});
+		listOder.push('temp');
+		let finalList = Object.assign(updatedList, {listsOder: listOder})
 
 		dispatch({
 			type: SET_BOARD_LIST,
@@ -208,9 +208,20 @@ export const addNewList = (e, value) => async (dispatch, getState) => {
   } catch (e) {
 		// const oldCardsData = localStorage.getItem('oldList');
 		// dispatch({
-		// 	type: SET_BOARD_CARDS,
+		// 	type: SET_BOARD_LIST,
 		// 	payload: JSON.parse(oldCardsData)
 		// });
 		console.log(e);
 	}
+}
+
+export const addNewCard = (e, value) => (dispatch, getState) => {
+	e.preventDefault();
+	const state = getState();
+	let cards = state.data.cards;
+
+
+
+	//await axios.post(`/1/lists?name=${value}&idBoard=${idBoard}&pos=bottom&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+
 }

@@ -6,11 +6,12 @@ const mapDispatchToProps = (dispatch) => ({
 	addNewList: (e, name) => dispatch(addNewList(e, name))
 });
 
+
 const mapStateToProps = (state) => {
   return {
 		board: getDetails(state),
 		lists: getLists(state),
-		cards: getCards(state),
+		cards: getCards(state)
   }
 };
 

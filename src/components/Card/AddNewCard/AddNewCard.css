@@ -1,0 +1,53 @@
+.icon-add:before {
+	content: "\002B";
+	font-size: 18px;
+	padding: 8px;
+}
+
+
+.add-card{
+	min-height: 30px;
+	cursor: pointer;
+}
+
+.add-card:hover {
+	background-color: rgb(202, 202, 202);
+}
+
+.icon-add:before {
+	content: "\002B";
+	font-size: 18px;
+	padding: 8px;
+}
+
+
+.button-close:before {
+	content:'\2715';
+	font-size: 24px;
+}
+
+.button-close {
+	padding: 0 10px;
+	outline: none;
+	border: none;
+}
+
+.card-name-input {
+	width: 100%;
+	padding: 2px 10px;
+	min-height: 32px;
+	border: none;
+	background: rgb(255, 255, 255);
+	box-shadow: inset 0px 0px 2px 1px rgba(93,142,240,1);
+	margin: 0;
+}
+
+.submit-section {
+	display: flex;
+	justify-content: start;
+	padding: 8px 0;
+}
+
+.hide-block {
+	display: none;
+}

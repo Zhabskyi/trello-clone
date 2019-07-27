@@ -15,8 +15,9 @@ export class Board extends React.PureComponent {
   componentWillReceiveProps(nextProps, nextContext) {
     if (nextProps.isAuthenticated && !this.props.isAuthenticated) {
       this.props.loadBoard(this.props.match.params.id);
-    }
-  }
+		}
+	}
+	
 
   renderSpinner = () => {
     return <Spinner/>;
@@ -50,7 +51,7 @@ export class Board extends React.PureComponent {
       <DragDropContext onDragEnd={result => this.props.onDragEnd(result)}>
         <div className="board"
              style={styles}>
-          {this.renderList()}
+					{this.renderList()}
           <AddNewList/>
         </div>
       </DragDropContext>
