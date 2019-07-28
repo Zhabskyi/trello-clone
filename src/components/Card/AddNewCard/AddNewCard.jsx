@@ -4,30 +4,26 @@ import './AddNewCard.css';
 
 export class AddNewCard extends Component {
 
-	
 	state = {
 		isExpanded: false,
 		value: ''
-	}
+	};
 
 	ExpandToggleHandler = (e) => {
 		e.preventDefault();
 		this.setState((prevState) => {
 			return {isExpanded: !prevState.isExpanded};
 		});
-	}
+	};
 
 	resetValue = () => {
 		this.setState({value: ''});
-	}
+	};
 
 	inputChangedHandler = (e) => {
 		e.preventDefault();
 		this.setState({value: e.target.value});
-	}
-
-		
-
+	};
 
 	render() {
 
@@ -49,11 +45,11 @@ export class AddNewCard extends Component {
 							</span>
 						</div>
 						<div className={addForm}>
-							<input 
-								className='card-name-input' 
-								type="text" 
+							<input
+								className='card-name-input'
+								type="text"
 								placeholder='Enter card title...'
-								value={this.state.value} 
+								value={this.state.value}
 								onChange={(e) => this.inputChangedHandler(e)}/>
 							<div className='submit-section'>
 								<Button type="submit"  variant="success">Add Card</Button>

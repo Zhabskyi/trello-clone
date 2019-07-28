@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
 import {AddNewList} from '../components/List/AddNewList/AddNewList';
-import {addNewList, getCards, getDetails, getLists} from '../store/data';
+import {addList, getCards, getDetails, getLists} from '../store/data';
 
 const mapDispatchToProps = (dispatch) => ({
-	addNewList: (e, name) => dispatch(addNewList(e, name))
+	addNewList: (e, name) => dispatch(addList(e, name))
 });
 
 
