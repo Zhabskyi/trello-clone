@@ -15,7 +15,6 @@ const INITIAL_STATE = {
 };
 
 export default function (state = INITIAL_STATE, action) {
-	debugger;
   switch (action.type) {
 		case SET_BOARDS:
       return {...state, boards: action.payload, isLoadingBoard: true};
