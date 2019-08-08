@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import {AddNewList} from '../components/List/AddNewList/AddNewList';
+import {AddNewItem} from '../components/AddNewItem/AddNewItem';
 import {addList, getCards, getDetails, getLists} from '../store/data';
 
 const mapDispatchToProps = (dispatch) => ({
-	addNewList: (e, name) => dispatch(addList(e, name))
+	addNewItem: (name) => dispatch(addList(name))
 });
 
 
@@ -15,6 +15,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const AddNewListContainer = connect(mapStateToProps, mapDispatchToProps)(AddNewList);
+const AddNewListContainer = connect(mapStateToProps, mapDispatchToProps)(AddNewItem);
 
 export default AddNewListContainer;

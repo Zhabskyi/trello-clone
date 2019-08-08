@@ -52,7 +52,13 @@ export class Board extends React.PureComponent {
         <div className="board"
              style={styles}>
 					{this.renderList()}
-          <AddNewList/>
+					<div className='list-wrapper'>
+						<div className='list'>
+							<AddNewList
+								placeholder = '  Add new list...'
+								item = 'list' />
+						</div>
+					</div>
         </div>
       </DragDropContext>
     </div>;

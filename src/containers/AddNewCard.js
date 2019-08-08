@@ -1,9 +1,9 @@
 import { connect } from 'react-redux';
-import {AddNewCard} from '../components/Card/AddNewCard/AddNewCard';
+import {AddNewItem} from '../components/AddNewItem/AddNewItem';
 import {addNewCard, getCards, getDetails, getLists} from '../store/data';
 
 const mapDispatchToProps = (dispatch) => ({
-	addNewCard: (e, name) => dispatch(addNewCard(e, name))
+	addNewItem: (e, name) => dispatch(addNewCard(e, name))
 });
 
 
@@ -15,6 +15,6 @@ const mapStateToProps = (state) => {
   }
 };
 
-const AddNewCardContainer = connect(mapStateToProps, mapDispatchToProps)(AddNewCard);
+const AddNewCardContainer = connect(mapStateToProps, mapDispatchToProps)(AddNewItem);
 
 export default AddNewCardContainer;

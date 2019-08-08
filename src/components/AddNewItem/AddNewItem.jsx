@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import Button from 'react-bootstrap/Button';
 import './AddNewItem.css';
 
-export class AddNewList extends Component {
+export class AddNewItem extends Component {
 
   state = {
     isExpanded: false,
@@ -26,7 +26,8 @@ export class AddNewList extends Component {
   };
 
   onSubmit = (e) => {
-    e.preventDefault();
+		e.preventDefault();
+		debugger;
     this.props.addNewItem(this.state.value);
     this.resetValue(e);
   };
@@ -43,32 +44,30 @@ export class AddNewList extends Component {
     }
 
     return (
-      <div className='list-wrapper'>
-        <div className='list add-list'>
+        <div className='add-item'>
           <form onSubmit={this.onSubmit}>
             <div className={addItem} onClick={this.ExpandToggleHandler}>
 							<span>
 								<span className='icon-add'></span>
-									  Add another list
+									  Add another {this.props.item}
 							</span>
             </div>
             <div className={addForm}>
               <input
-                className='list-name-input'
+                className='name-input'
                 type="text"
-                placeholder='Enter list title...'
+                placeholder = {this.props.placeholder}
                 value={this.state.value}
                 onChange={(e) => this.inputChangedHandler(e)}/>
               <div className='submit-section'>
-                <Button type="submit" variant="success">Add List</Button>
+                <Button type="submit" variant="success">Add {this.props.item}</Button>
                 <button className='button-close btn' onClick={this.ExpandToggleHandler}></button>
               </div>
             </div>
           </form>
         </div>
-      </div>
     );
   }
 }
 
-export default AddNewList;
+export default AddNewItem;
