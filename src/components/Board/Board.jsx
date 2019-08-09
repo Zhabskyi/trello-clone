@@ -53,7 +53,7 @@ export class Board extends React.PureComponent {
              style={styles}>
 					{this.renderList()}
 					<div className='list-wrapper'>
-						<div className='list'>
+						<div className='add-list'>
 							<AddNewList
 								placeholder = '  Add new list...'
 								item = 'list' />
@@ -65,7 +65,6 @@ export class Board extends React.PureComponent {
   };
 
   render() {
-    debugger;
     if (!this.props.isAuthenticated || this.props.isLoadingBoard) {
       return this.renderSpinner();
     } else {

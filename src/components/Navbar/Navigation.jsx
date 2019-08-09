@@ -1,15 +1,13 @@
 import React, { Component } from 'react';
+import Button from 'react-bootstrap/Button';
+import Form from 'react-bootstrap/Form';
+import Navbar from 'react-bootstrap/Navbar';
 import { withRouter } from 'react-router-dom';
-
+import NewBoard from '../../containers/NewBoard';
 import './Navigation.css';
 
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
 
-import NewBoard from '../../containers/NewBoard';
+
 
 const axios = require('axios');
 
@@ -43,12 +41,6 @@ class Navigation extends Component {
 					<Navbar.Brand >Let's be motivated!</Navbar.Brand>
 					<Navbar.Toggle aria-controls="basic-navbar-nav" />
 					<Navbar.Collapse id="basic-navbar-nav">
-						<Nav className="mr-auto">
-							<NavDropdown title="Boards" id="basic-nav-dropdown">
-								<NavDropdown.Item onClick = {() => onModal()}>Create new board</NavDropdown.Item>
-								<NavDropdown.Divider />
-							</NavDropdown>
-						</Nav>
 						<Form inline>
 							<Button variant="outline-secondary" className="btn_signOut" onClick={() => {this.signOut()}}>Sign Out</Button>
 						</Form>

@@ -48,7 +48,7 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
       Object.assign(el, {cardIds: []});
     });
 
-    const cardsData = cards.data;
+		const cardsData = cards.data;
 
     const arrayOfListsId = [];
     const arrayOfCardsId = [];
@@ -79,7 +79,6 @@ export const fetchBoard = (id) => async (dispatch, getState) => {
 
     let objLists = arrayToObject(trelloList);
     Object.assign(objLists, {listsOder: arrayOfListsId});
-
 
     dispatch({
       type: SET_BOARD_CARDS,
@@ -213,12 +212,31 @@ export const removeList = (value) => async (dispatch, getState) => {
 
 };
 
-export const addNewCard = (e, value) => (dispatch, getState) => {
-  e.preventDefault();
-  const state = getState();
-  let cards = state.data.cards;
+export const addNewCard = (value, listId) => async (dispatch, getState) => {
+	const state = getState();
+	let cards = {...state.data.cards};
+	let lists = {...state.data.lists};
+	try {
+		const response = await axios.post(`/1/cards?name=${value}&idList=${listId}&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
 
+		const updatedCards = {...cards, [response.data.id]: response.data };
 
-  //await axios.post(`/1/lists?name=${value}&idBoard=${idBoard}&pos=bottom&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+		for (const key in lists) {
+			if ( key === response.data.idList) {
+				lists[key].cardIds.push(response.data.id);
+			}
+		}
+	
+		dispatch({
+      type: SET_BOARD_CARDS,
+      payload: updatedCards
+		});
+		dispatch({
+      type: SET_BOARD_LIST,
+      payload: lists
+    });
 
+	} catch (e) {
+		console.log(e)
+	}
 };

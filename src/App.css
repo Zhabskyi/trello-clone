@@ -38,7 +38,7 @@
 }
 
 .board-wrapper {
-	height: 95.2vh;
+	min-height: 2000px;
 	position: relative;
 	flex-grow: 1;
 }
@@ -72,7 +72,7 @@
 	padding: 10px 8px;
 	min-height: 25px;
 	background-color: #dfe1e6;
-	border-radius: 3px;
+	border-radius: 5px;
 	box-sizing: border-box;
 	display: flex;
 	flex-direction: column;
@@ -80,6 +80,13 @@
 	position: relative;
 	white-space: normal;
 	text-align: center;
+}
+
+.add-list {
+	background-color: rgb(223, 225, 230, 0.5);
+	padding: 10px 8px;
+	min-height: 30px;
+	border-radius: 5px;
 }
 
 .list-name {

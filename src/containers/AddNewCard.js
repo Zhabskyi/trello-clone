@@ -3,7 +3,7 @@ import {AddNewItem} from '../components/AddNewItem/AddNewItem';
 import {addNewCard, getCards, getDetails, getLists} from '../store/data';
 
 const mapDispatchToProps = (dispatch) => ({
-	addNewItem: (e, name) => dispatch(addNewCard(e, name))
+	addNewItem: (name,listId) => dispatch(addNewCard(name, listId))
 });
 
 

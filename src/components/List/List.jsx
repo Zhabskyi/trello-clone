@@ -45,6 +45,7 @@ export class List extends React.PureComponent {
 								</Droppable>
 							</div>
 							<AddNewCard 
+								listId={listId}
 								item ='card'
 								placeholder='  Add new card'/>
 						</div>

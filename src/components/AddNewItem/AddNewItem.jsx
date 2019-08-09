@@ -27,8 +27,7 @@ export class AddNewItem extends Component {
 
   onSubmit = (e) => {
 		e.preventDefault();
-		debugger;
-    this.props.addNewItem(this.state.value);
+    this.props.addNewItem(this.state.value, this.props.listId);
     this.resetValue(e);
   };
 
