@@ -37,7 +37,10 @@ export class List extends React.PureComponent {
 										>	
 											{cards.map((card, index) => {
 												//debugger;
-											return <Card key={card.id} card={card} index={index} />
+											return <Card key={card.id} 
+												card={card} 
+												index={index} 
+												listId={listId} />
 											})}
 											{provided.placeholder}
 										</div>

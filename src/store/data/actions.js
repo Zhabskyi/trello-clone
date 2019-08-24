@@ -208,10 +208,6 @@ export const addList = (value) => async (dispatch, getState) => {
   }
 };
 
-export const removeList = (value) => async (dispatch, getState) => {
-
-};
-
 export const addNewCard = (value, listId) => async (dispatch, getState) => {
 	const state = getState();
 	let cards = {...state.data.cards};
@@ -236,6 +232,38 @@ export const addNewCard = (value, listId) => async (dispatch, getState) => {
       payload: lists
     });
 
+	} catch (e) {
+		console.log(e)
+	}
+};
+
+export const deleteCard = (cardId, listId) => async (dispatch, getState) => {
+	const state = getState();
+	let lists = {...state.data.lists};
+	let cards = {...state.data.cards};
+	
+	try {
+		const response = await axios.delete(`/1/cards/${cardId}?key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+	
+		delete cards[cardId];
+		for (const key in lists) {
+			if ( key === listId) {
+				const index = lists[key].cardIds.indexOf(cardId);
+				if (index > -1) {
+					lists[key].cardIds.splice(index, 1);
+				}
+			}
+		}
+
+		dispatch({
+			type: SET_BOARD_CARDS,
+			payload: cards
+		});
+		dispatch({
+      type: SET_BOARD_LIST,
+      payload: lists
+		});
+		
 	} catch (e) {
 		console.log(e)
 	}

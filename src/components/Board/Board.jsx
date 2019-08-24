@@ -47,10 +47,9 @@ export class Board extends React.PureComponent {
       backgroundSize: 'cover'
     };
 
-    return <div className="board-wrapper">
+    return <div className="board-wrapper" style={styles}>
       <DragDropContext onDragEnd={result => this.props.onDragEnd(result)}>
-        <div className="board"
-             style={styles}>
+        <div className="board">
 					{this.renderList()}
 					<div className='list-wrapper'>
 						<div className='add-list'>

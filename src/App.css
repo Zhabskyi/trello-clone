@@ -1,5 +1,8 @@
 
 .page-wrapper{
+	display: flex;
+	flex-direction: column;
+	height: 100%;
 }
 
 .board__card {
@@ -38,7 +41,7 @@
 }
 
 .board-wrapper {
-	min-height: 2000px;
+	min-height: 94.5vh;
 	position: relative;
 	flex-grow: 1;
 }
@@ -92,6 +95,14 @@
 .list-name {
 	font-weight: bold;
 	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	max-height: 100%;
+	position: relative;
+	white-space: normal;
+	overflow-y: auto;
+	overflow-x: hidden;
 }
 
 
@@ -100,11 +111,8 @@
 	text-align: left;
 	flex: 1 1 auto;
 	margin-bottom: 0;
-	overflow-y: auto;
-	overflow-x: hidden;
 	margin: 0 4px;
 	padding: 0 4px;
-	z-index: 1;
 	min-height: 60px;
 }
 
@@ -115,10 +123,17 @@
 	box-shadow: 8px 10px 4px -5px rgba(168,168,168,0.6);
 	padding: 12px;
 	margin: 8px 0;
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
 }
 
 .card-wrapper:focus {
 	outline:none;
+}
+
+.card-wrapper:hover .delete-button {
+	display: block;
 }
 
 .blank {
@@ -134,4 +149,14 @@
 	max-width: 60%;
 	margin: 20px auto;
 	text-align: center;
+}
+.delete-button {
+	display: none;
+	height: 25px;
+	min-width: 25px;
+	text-align: center;
+}
+
+.delete-button:hover {
+	background-color: #c5c5c5;
 }
