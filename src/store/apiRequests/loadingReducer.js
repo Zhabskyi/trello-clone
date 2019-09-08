@@ -21,7 +21,7 @@ export const loadingReducer = (state = {}, action) => {
 
     case 'SUCCEED':
     case 'ERROR':
-      debugger;
+    //  debugger;
       return deleteFromStore(state, requestName);
 
     default:

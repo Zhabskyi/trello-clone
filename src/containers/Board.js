@@ -9,7 +9,7 @@ const mapDispatchToProps = (dispatch) => ({
 	onDragEnd: (result) => dispatch(onDragEnd(result)),
 	loadBoard: (id) => dispatch(fetchBoard(id))
 });
-debugger;
+
 const getIsLoadingBoard = createLoadingSelector(FETCH_BOARD);
 
 const mapStateToProps = (state) => {
