@@ -268,3 +268,28 @@ export const deleteCard = (cardId, listId) => async (dispatch, getState) => {
 		console.log(e)
 	}
 };
+
+export const deleteList = (listId) => async (dispatch, getState) => {
+	const state = getState();
+  let lists = {...state.data.lists};
+  let listsOder = [...state.data.lists.listsOder];
+	
+	try {
+		const response = await axios.put(`/1/lists/${listId}?closed=true&key=${process.env.REACT_APP_TRELLO_KEY}&token=${localStorage.token}`);
+
+    delete lists[listId];
+
+    let result = listsOder.filter(item => item !== listId);
+    
+    let finalList = {...lists, listsOder: result};
+
+
+		dispatch({
+      type: SET_BOARD_LIST,
+      payload: finalList
+		});
+    } catch (e) {
+
+      console.log(e);
+    }
+  };

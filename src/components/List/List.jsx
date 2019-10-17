@@ -4,6 +4,7 @@ import { Droppable } from 'react-beautiful-dnd';
 import Card from '../Card/Card';
 import Spinner from '../Spinner/Spinner';
 import AddNewCard from '../../containers/AddNewCard';
+import DeleteList from '../../containers/DeleteList';
 
 const getListStyle = (isDraggingOver, draggableStyle) => ({
 	background: isDraggingOver ? "#b4cfe0" : "inherit",
@@ -26,6 +27,10 @@ export class List extends React.PureComponent {
 				<div className='list-wrapper'	>
 						<div className="list">
 							<div className='list-name'>
+                <div>
+                  <DeleteList
+                    listId={listId}/>
+                </div>
 								{name}
 								<Droppable droppableId={listId}>
 									{(provided, snapshot) => (
@@ -42,7 +47,7 @@ export class List extends React.PureComponent {
 												index={index} 
 												listId={listId} />
 											})}
-											{provided.placeholder}
+                      {provided.placeholder}
 										</div>
 									)}
 								</Droppable>
